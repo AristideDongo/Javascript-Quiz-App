@@ -18,7 +18,7 @@ const Scoreboard: React.FC<ScoreboardProps> = ({ score, totalQuestions }) => {
     }, []);
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-b from-blue-400 to-purple-600 text-white">
+        <div className="flex flex-col items-center justify-center h-screen text-white">
             <div className="bg-white text-black p-6 sm:p-8 rounded-lg shadow-lg max-w-md w-full">
                 <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-center">
                     Score Final de {playerName ? playerName : 'Joueur'}
