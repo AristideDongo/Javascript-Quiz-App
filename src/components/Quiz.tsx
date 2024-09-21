@@ -4,15 +4,7 @@ import React, { useState } from "react";
 import quizData from "@/data/quizData";
 
 // Définir l'interface pour les données du quiz
-interface Answer {
-  text: string;
-  isCorrect: boolean;
-}
 
-interface QuizQuestion {
-  question: string;
-  answers: Answer[];
-}
 
 interface QuizProps {
   onComplete: (score: number) => void;
@@ -27,41 +19,32 @@ const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [isCorrectAnswer, setIsCorrectAnswer] = useState<boolean | null>(null);
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
-  const [correctAnswerIndex, setCorrectAnswerIndex] = useState<number | null>(
-    null
-  );
-  const [consecutiveWrongAnswers, setConsecutiveWrongAnswers] =
-    useState<number>(0); // Nouvelle state pour suivre les mauvaises réponses
-  const [showEncouragement, setShowEncouragement] = useState<boolean>(false); // Suivre si le message d'encouragement doit être affiché
-  const [levelCompleted, setLevelCompleted] = useState<boolean>(false); // Nouvelle state pour savoir si le niveau est terminé
-  const [levelScores, setLevelScores] = useState<number[]>([]); // Stocker le score de chaque niveau
+  const [correctAnswerIndex, setCorrectAnswerIndex] = useState<number | null>(null);
+  const [consecutiveWrongAnswers, setConsecutiveWrongAnswers] = useState<number>(0);
+  const [showEncouragement, setShowEncouragement] = useState<boolean>(false);
+  const [levelCompleted, setLevelCompleted] = useState<boolean>(false);
 
   // Calculer le début et la fin des questions du niveau actuel
   const startQuestionIndex = (currentLevel - 1) * QUESTIONS_PER_LEVEL;
   const endQuestionIndex = startQuestionIndex + QUESTIONS_PER_LEVEL;
-  const currentLevelQuestions = quizData.slice(
-    startQuestionIndex,
-    endQuestionIndex
-  );
+  const currentLevelQuestions = quizData.slice(startQuestionIndex, endQuestionIndex);
 
   const handleAnswer = (index: number, isCorrect: boolean) => {
     setSelectedAnswer(index);
     setIsCorrectAnswer(isCorrect);
     setIsDisabled(true);
 
-    const correctIndex = currentLevelQuestions[
-      currentQuestion
-    ].answers.findIndex((answer) => answer.isCorrect);
+    const correctIndex = currentLevelQuestions[currentQuestion].answers.findIndex((answer) => answer.isCorrect);
     setCorrectAnswerIndex(correctIndex);
 
     if (isCorrect) {
       setScore((prevScore) => prevScore + 1);
-      setConsecutiveWrongAnswers(0); // Réinitialiser le compteur si réponse correcte
-      setShowEncouragement(false); // Cacher le message si on était dans la mauvaise série
+      setConsecutiveWrongAnswers(0);
+      setShowEncouragement(false);
     } else {
-      setConsecutiveWrongAnswers((prev) => prev + 1); // Incrémenter les mauvaises réponses
+      setConsecutiveWrongAnswers((prev) => prev + 1);
       if (consecutiveWrongAnswers + 1 >= 5) {
-        setShowEncouragement(true); // Afficher le message d'encouragement après 5 mauvaises réponses
+        setShowEncouragement(true);
       }
     }
 
@@ -69,11 +52,8 @@ const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       if (currentQuestion < currentLevelQuestions.length - 1) {
         setCurrentQuestion((prevQuestion) => prevQuestion + 1);
       } else {
-        // Stocker le score du niveau actuel avant de passer au niveau suivant
-        setLevelScores((prevScores) => [...prevScores, score]);
-        setLevelCompleted(true); // Niveau terminé
+        setLevelCompleted(true);
       }
-      // Réinitialiser les états après chaque question
       setSelectedAnswer(null);
       setIsCorrectAnswer(null);
       setIsDisabled(false);
@@ -83,11 +63,11 @@ const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
 
   const handleNextLevel = () => {
     if (endQuestionIndex < quizData.length) {
-      setCurrentLevel((prevLevel) => prevLevel + 1); // Passer au niveau suivant
-      setCurrentQuestion(0); // Réinitialiser la question du niveau suivant
-      setLevelCompleted(false); // Réinitialiser le statut de fin de niveau
+      setCurrentLevel((prevLevel) => prevLevel + 1);
+      setCurrentQuestion(0);
+      setLevelCompleted(false);
     } else {
-      onComplete(score); // Terminer le quiz s'il n'y a plus de niveaux
+      onComplete(score);
     }
   };
 
@@ -96,8 +76,7 @@ const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       <div className="bg-white shadow-lg rounded-lg p-6 md:p-8 max-w-md w-full mx-auto">
         {showEncouragement && (
           <div className="text-red-600 font-bold text-center mb-4">
-            5 mauvaises réponses consécutives ! Reprends-toi en main, tu peux y
-            arriver !
+            5 mauvaises réponses consécutives ! Reprends-toi en main, tu peux y arriver !
           </div>
         )}
 
@@ -114,37 +93,21 @@ const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
             </h2>
 
             <div className="flex flex-col space-y-2">
-              {currentLevelQuestions[currentQuestion].answers.map(
-                (answer, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handleAnswer(index, answer.isCorrect)}
-                    className={`transition duration-300 ease-in-out transform hover:scale-105 px-4 py-2 rounded-lg shadow
-                            ${
-                              selectedAnswer === index
-                                ? isCorrectAnswer
-                                  ? "bg-green-500"
-                                  : "bg-red-500"
-                                : correctAnswerIndex === index &&
-                                  !isCorrectAnswer
-                                ? "bg-green-500"
-                                : "bg-blue-600"
-                            }
-                            ${
-                              isDisabled
-                                ? "cursor-not-allowed"
-                                : "hover:bg-blue-700 text-white"
-                            }
-                        `}
-                    disabled={isDisabled}
-                  >
-                    {answer.text}
-                  </button>
-                )
-              )}
+              {currentLevelQuestions[currentQuestion].answers.map((answer, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleAnswer(index, answer.isCorrect)}
+                  className={`transition duration-300 ease-in-out transform hover:scale-105 px-4 py-2 rounded-lg shadow
+                          ${selectedAnswer === index ? (isCorrectAnswer ? "bg-green-500" : "bg-red-500") : 
+                          (correctAnswerIndex === index && !isCorrectAnswer ? "bg-green-500" : "bg-blue-600")}
+                          ${isDisabled ? "cursor-not-allowed" : "hover:bg-blue-700 text-white"}`}
+                  disabled={isDisabled}
+                >
+                  {answer.text}
+                </button>
+              ))}
             </div>
 
-            {/* Bouton pour sauter de niveau */}
             <div className="text-center mt-4">
               <button
                 onClick={handleNextLevel}
@@ -152,9 +115,8 @@ const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
               >
                 Sauter le niveau
               </button>
-              <p className="text-gray-500 mt-2  font-semibold">
-                NB: Lorsque vous sautez un niveau, vous aurez 0/10 pour le
-                niveau
+              <p className="text-gray-500 mt-2 font-semibold">
+                NB: Lorsque vous sautez un niveau, vous aurez 0/10 pour le niveau
               </p>
             </div>
           </>
@@ -170,9 +132,7 @@ const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
               onClick={handleNextLevel}
               className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700"
             >
-              {endQuestionIndex < quizData.length
-                ? "Passer au niveau suivant"
-                : "Quiz terminé"}
+              {endQuestionIndex < quizData.length ? "Passer au niveau suivant" : "Quiz terminé"}
             </button>
           </div>
         )}
