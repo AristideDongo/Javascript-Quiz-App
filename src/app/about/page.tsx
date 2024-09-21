@@ -30,7 +30,7 @@ export default function Page() {
         </div>
       </div>
       <h3 className="text-3xl text-center font-bold text-black mt-10" >Contactez-nous si vous voulez avoir une formation personalisée pour être parmi les meilleurs</h3>
-      <a href="https://wa.me/+2250777596686" target="_blank" >
+      <a href="https://wa.me/+2250170625637" target="_blank" >
       <button className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded mt-4" >
         Contacter-Nous
       </button>

@@ -36,14 +36,13 @@ const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     setIsCorrectAnswer(isCorrect);
     setIsDisabled(true);
 
+    const correctIndex = currentLevelQuestions[currentQuestion].answers.findIndex((answer) => answer.isCorrect);
+    setCorrectAnswerIndex(correctIndex);
     if (isCorrect) {
       setLevelScore((prevScore) => prevScore + 1);
       setConsecutiveWrongAnswers(0);
       setShowEncouragement(false);
     }
-
-    const correctIndex = currentLevelQuestions[currentQuestion].answers.findIndex((answer) => answer.isCorrect);
-    setCorrectAnswerIndex(correctIndex);
 
     if (isCorrect) {
       setScore((prevScore) => prevScore + 1);
