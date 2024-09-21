@@ -16,7 +16,7 @@ const QuizPage = () => {
 
 
     return (
-        <div className="p-4">
+        <div className="flex flex-col mt-4 items-center justify-center h-screen bg-gradient-to-r from-blue-500 to-teal-500">
             {isCompleted ? (
                 <Scoreboard score={score} totalQuestions={totalQuestions} />
             ) : (
