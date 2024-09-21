@@ -23,6 +23,8 @@ const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
   const [consecutiveWrongAnswers, setConsecutiveWrongAnswers] = useState<number>(0);
   const [showEncouragement, setShowEncouragement] = useState<boolean>(false);
   const [levelCompleted, setLevelCompleted] = useState<boolean>(false);
+  const [levelScore, setLevelScore] = useState<number>(0);
+
 
   // Calculer le début et la fin des questions du niveau actuel
   const startQuestionIndex = (currentLevel - 1) * QUESTIONS_PER_LEVEL;
@@ -33,6 +35,12 @@ const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     setSelectedAnswer(index);
     setIsCorrectAnswer(isCorrect);
     setIsDisabled(true);
+
+    if (isCorrect) {
+      setLevelScore((prevScore) => prevScore + 1);
+      setConsecutiveWrongAnswers(0);
+      setShowEncouragement(false);
+    }
 
     const correctIndex = currentLevelQuestions[currentQuestion].answers.findIndex((answer) => answer.isCorrect);
     setCorrectAnswerIndex(correctIndex);
@@ -66,10 +74,12 @@ const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
       setCurrentLevel((prevLevel) => prevLevel + 1);
       setCurrentQuestion(0);
       setLevelCompleted(false);
+      setLevelScore(0); // Réinitialiser le score du niveau
     } else {
-      onComplete(score);
+      onComplete(score); // Si tu veux transmettre le score total à la fin
     }
   };
+  
 
   return (
     <div className="p-4">
@@ -126,7 +136,7 @@ const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
               Niveau {currentLevel} terminé !
             </h2>
             <p className="text-lg mb-4">
-              Vous avez obtenu {score} bonnes réponses sur {quizData.length}.
+              Vous avez obtenu {levelScore} bonnes réponses sur {currentLevelQuestions.length}.
             </p>
             <button
               onClick={handleNextLevel}
