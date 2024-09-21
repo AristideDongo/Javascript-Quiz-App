@@ -47,7 +47,7 @@ const Quiz: React.FC<QuizProps> = ({ onComplete }) => {
     if (isCorrect) {
       setScore((prevScore) => prevScore + 1);
       setConsecutiveWrongAnswers(0);
-      setShowEncouragement(false);
+      setShowEncouragement(false); 
     } else {
       setConsecutiveWrongAnswers((prev) => prev + 1);
       if (consecutiveWrongAnswers + 1 >= 5) {

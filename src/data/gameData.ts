@@ -12,7 +12,7 @@ export const functionQuestions: Question[] = [
   {
     question:
       "Quelle est la syntaxe correcte pour appeler une fonction nommée 'calculate' ?",
-    correctAnswer: "calculate();",
+    correctAnswer: "calculate()",
   },
   {
     question:
