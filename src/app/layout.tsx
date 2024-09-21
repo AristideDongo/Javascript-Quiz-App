@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   keywords: "JavaScript, quiz, apprendre, éducation, interactif",
   authors: [{ name: "Aristide Dongo", url: "https://javascript-quiz-app-ashen.vercel.app" }],
   creator: "Aristide Dongo",
+  icons: '/favicon.ico',
   openGraph: {
     title: "Javascript Quiz",
     description: "Javascript Quiz by Aristide Dongo pour tester sa connaissance en JavaScript",

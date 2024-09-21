@@ -20,27 +20,29 @@ export default function Page() {
     return (
         <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-r from-blue-200 to-blue-500 px-4">
             <motion.h1
-                className="text-4xl sm:text-6xl lg:text-7xl mb-4 font-bold text-black text-center"
+                className="text-4xl sm:text-6xl mt-16 lg:text-7xl mb-4 font-bold text-black text-center"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
             >
                 Bienvenue dans Javascript Quiz
             </motion.h1>
+
             <motion.p
-                className="text-lg sm:text-xl mb-4 font-semibold text-black text-center"
-                initial={{ opacity: 0, y: -20 }}
+                className="text-lg sm:text-xl lg:text-2xl mb-8 font-semibold text-black text-center"
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
             >
-                by ARISTIDE DONGO
+                by Ivoit Agence Academy
             </motion.p>
+
             <motion.input
                 type="text"
                 placeholder="Entrez votre nom"
                 value={playerName}
                 onChange={handleChange}
-                className="border-2 border-gray-300 px-4 py-2 mb-4 rounded-full w-full max-w-xs"
+                className="border-2 mt-8 border-gray-300 px-4 py-2 mb-4 rounded-full w-full max-w-xs"
                 whileFocus={{ scale: 1.05 }}
             />
             <Link href={playerName ? '/quiz' : "#"}>
@@ -55,12 +57,21 @@ export default function Page() {
                 </motion.button>
             </Link>
 
-            <Link href="/404" >
+            <Link href="/about">
                 <motion.button
-                    className="bg-blue-600 text-white mt-16 px-4 py-2 rounded-full shadow-lg transition duration-300 ease-in-out hover:bg-blue-700"
+                    className="bg-green-600 mt-16 text-white px-4 py-2 rounded-full shadow-lg transition duration-300 ease-in-out hover:bg-green-700"
                     whileHover={{ scale: 1.1 }}
                 >
-                    Si vous voulez découvrir une page de 404 original, cliquez ici
+                    A propos
+                </motion.button>
+            </Link>
+
+            <Link href="/404" >
+                <motion.button
+                    className="bg-red-600 text-white mt-16 px-4 py-2 rounded-full shadow-lg transition duration-300 ease-in-out hover:bg-red-700"
+                    whileHover={{ scale: 1.1 }}
+                >
+                    Si vous voulez découvrir une page de 404, cliquez ici
                 </motion.button>
             </Link>
         </div>
