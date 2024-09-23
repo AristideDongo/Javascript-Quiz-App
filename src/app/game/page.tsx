@@ -145,7 +145,7 @@ export default function QuizPage() {
             onClick={handleSkipLevel}
             className="bg-yellow-500 text-white px-4 py-2 rounded-lg mt-14 w-1/2"
           >
-            Sauter au niveau suivant
+            Sauter le niveau
           </button>
           <p className="text-gray-500 mt-2  font-semibold">
                 NB: Lorsque vous sautez un niveau, vous aurez 0/10 pour le
